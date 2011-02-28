@@ -2,14 +2,38 @@
 
 - (BOOL)canOpenURL:(NSURL *)url
 {
-	NSLog(@"------------canOpenURL-----------");
+	NSLog(@"------------UIApplication_canOpenURL-----------");
 	%log;
 	return %orig;
 }
 
 - (BOOL)openURL:(NSURL *)url
 {
-	NSLog(@"------------openURL-----------");
+	NSLog(@"------------UIApplication_openURL-----------");
+	%log;
+	return %orig;
+}
+
+- (void)applicationOpenURL:(NSURL *)url
+{
+	NSLog(@"------------UIApplication_applicationOpenURL-----------");
+	%log;
+	return %orig;
+}
+%end
+
+%hook SpringBoard
+
+- (void)applicationOpenURL:(NSURL *)url
+{
+	NSLog(@"------------SpringBoard_applicationOpenURL-----------");
+	%log;
+	return %orig;
+}
+
+- (void)applicationOpenURL:(NSURL *)url publicURLsOnly:(BOOL)only
+{
+	NSLog(@"------------SpringBoard_applicationOpenURL:publishURLsOnly-----------");
 	%log;
 	return %orig;
 }
