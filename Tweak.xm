@@ -1,3 +1,22 @@
+static inline void Alert(NSString *message)
+{
+	// Helper function
+	UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"SurveyScheme" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	[av show];
+	[av release];
+}
+
+%hook SBAppToAppTransitionView
+
+-(id)_rotationValueFunction
+{
+	%log;
+	Alert(%orig);
+	return %orig;
+}
+
+%end
+
 %hook UIApplication
 
 - (BOOL)canOpenURL:(NSURL *)url
@@ -38,3 +57,4 @@
 	return %orig;
 }
 %end
+
